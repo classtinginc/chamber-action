@@ -1,0 +1,7 @@
+name: 'Chamber Export'
+
+description: 'export your AWS SSM Parameter Store'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
