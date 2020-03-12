@@ -1,6 +1,6 @@
 # Chamber action
 
-Get your secrets from AWS SSM ParameterStore to your GitHub Actions workspace safely.
+Get your secrets safely from AWS SystemsManager ParameterStore to your GitHub Actions workspace.
 
 ## Usage
 
@@ -8,15 +8,14 @@ Get your secrets from AWS SSM ParameterStore to your GitHub Actions workspace sa
 jobs:
   your-job:
     steps:
-      - uses: cmygray/chamber-action@master
+      - uses: classtinginc/chamber-action@master
         id: chamber
         env:
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         with:
-          service: your-parameter-store-service-name
-        
-      - name: write dotenv
-        run: |
-          echo ${{ steps.chamber.outputs.secrets }} > .env
+          args: export --format dotenv --output-file .env YOUR_SERVICE_NAME
 ```
+
+more usages: https://github.com/segmentio/chamber#usage
